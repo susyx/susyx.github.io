@@ -4,24 +4,27 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>首篇 | 苏</title>
+  <title>Android ActionBar计划 | 苏</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="博客终于，参考大神的这篇文章《史上最详细的Hexo博客搭建图文教程》搭建了自己的博客，现在都是hexo提供的模版，感觉hexo屌屌的，以后会抽时间在样式的定制上。
-写博客主要是为了总结自己，以及培养自己写文档的能力（不写文档的程序员都不是好程序员），希望能多产出。
-目标由于现在的工作重点是android控件，所以先把自己以前做过的工作——frameworks的部分控件整理一些文档出来，算是总结吧。">
+  <meta name="description" content="开始写博客吧！
+ActionBar学习计划前言对着ActionBar也有一段时间了，算是比较熟也能拿得出场子的东西，就以它作为开山之作吧。
+想了解一下ActionBar的历史，猛的发现我们大神的博客有介绍ActionBar的使用，还十分详细，想了解用法的可以去看看：http://blog.csdn.net/xyz_lmn/article/details/8132420。
+这里我就不废话Action">
 <meta property="og:type" content="article">
-<meta property="og:title" content="首篇">
-<meta property="og:url" content="http://you-x.github.io/2016/04/24/hello-world/index.html">
+<meta property="og:title" content="Android ActionBar计划">
+<meta property="og:url" content="http://you-x.github.io/2016/05/15/action-bar-plan/index.html">
 <meta property="og:site_name" content="苏">
-<meta property="og:description" content="博客终于，参考大神的这篇文章《史上最详细的Hexo博客搭建图文教程》搭建了自己的博客，现在都是hexo提供的模版，感觉hexo屌屌的，以后会抽时间在样式的定制上。
-写博客主要是为了总结自己，以及培养自己写文档的能力（不写文档的程序员都不是好程序员），希望能多产出。
-目标由于现在的工作重点是android控件，所以先把自己以前做过的工作——frameworks的部分控件整理一些文档出来，算是总结吧。">
-<meta property="og:updated_time" content="2016-04-24T08:31:34.000Z">
+<meta property="og:description" content="开始写博客吧！
+ActionBar学习计划前言对着ActionBar也有一段时间了，算是比较熟也能拿得出场子的东西，就以它作为开山之作吧。
+想了解一下ActionBar的历史，猛的发现我们大神的博客有介绍ActionBar的使用，还十分详细，想了解用法的可以去看看：http://blog.csdn.net/xyz_lmn/article/details/8132420。
+这里我就不废话Action">
+<meta property="og:updated_time" content="2016-05-19T05:24:34.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="首篇">
-<meta name="twitter:description" content="博客终于，参考大神的这篇文章《史上最详细的Hexo博客搭建图文教程》搭建了自己的博客，现在都是hexo提供的模版，感觉hexo屌屌的，以后会抽时间在样式的定制上。
-写博客主要是为了总结自己，以及培养自己写文档的能力（不写文档的程序员都不是好程序员），希望能多产出。
-目标由于现在的工作重点是android控件，所以先把自己以前做过的工作——frameworks的部分控件整理一些文档出来，算是总结吧。">
+<meta name="twitter:title" content="Android ActionBar计划">
+<meta name="twitter:description" content="开始写博客吧！
+ActionBar学习计划前言对着ActionBar也有一段时间了，算是比较熟也能拿得出场子的东西，就以它作为开山之作吧。
+想了解一下ActionBar的历史，猛的发现我们大神的博客有介绍ActionBar的使用，还十分详细，想了解用法的可以去看看：http://blog.csdn.net/xyz_lmn/article/details/8132420。
+这里我就不废话Action">
   
     <link rel="alternative" href="/atom.xml" title="苏" type="application/atom+xml">
   
@@ -174,11 +177,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-action-bar-plan" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/04/24/hello-world/" class="article-date">
-  	<time datetime="2016-04-24T07:36:52.000Z" itemprop="datePublished">2016-04-24</time>
+      <a href="/2016/05/15/action-bar-plan/" class="article-date">
+  	<time datetime="2016-05-15T02:45:28.000Z" itemprop="datePublished">2016-05-15</time>
 </a>
     </div>
   
@@ -191,7 +194,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      首篇
+      Android ActionBar计划
     </h1>
   
 
@@ -199,11 +202,11 @@
       
       <div class="article-info article-info-post">
         
-        
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/none/">none</a>
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ActionBar/">ActionBar</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
 	</div>
 
+        
 
         <div class="clearfix"></div>
       </div>
@@ -211,10 +214,24 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="博客"><a href="#博客" class="headerlink" title="博客"></a>博客</h3><p>终于，参考大神的这篇文章<a href="https://xuanwo.org/2015/03/26/hexo-intor/" target="_blank" rel="external">《史上最详细的Hexo博客搭建图文教程》</a>搭建了自己的博客，现在都是hexo提供的模版，感觉hexo屌屌的，以后会抽时间在样式的定制上。</p>
-<p>写博客主要是为了总结自己，以及培养自己写文档的能力（不写文档的程序员都不是好程序员），希望能多产出。</p>
-<h3 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h3><p>由于现在的工作重点是android控件，所以先把自己以前做过的工作——frameworks的部分控件整理一些文档出来，算是总结吧。</p>
-<p>希望有了博客的推动，自己会在技术上多上心，然后可以多分享一些技术。</p>
+        <p><strong>开始写博客吧！</strong></p>
+<h3 id="ActionBar学习计划"><a href="#ActionBar学习计划" class="headerlink" title="ActionBar学习计划"></a>ActionBar学习计划</h3><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>对着ActionBar也有一段时间了，算是比较熟也能拿得出场子的东西，就以它作为开山之作吧。</p>
+<p>想了解一下ActionBar的历史，猛的发现我们大神的博客有介绍ActionBar的使用，还十分详细，想了解用法的可以去看看：<a href="http://blog.csdn.net/xyz_lmn/article/details/8132420" target="_blank" rel="external">http://blog.csdn.net/xyz_lmn/article/details/8132420</a>。</p>
+<p>这里我就不废话ActionBar的前世今生了。虽然从Android 4.4开始，我就接触ActionBar，但我并不想再去详细说旧版本的东西，这是ActionBar的学习计划，我也本着学习的心态从较新的Android M版本出发来介绍ActionBar的实现。</p>
+<p>由于ActionBar是一个比较庞大的组件，它并不是一个独立的View，是由许多View和控制辅助类来共同实现的，另外我是博客菜鸟，文章写的比较慢，如果要把一整套完成后才发布可能要等到猴年马月，所以打算是把它分成一系列的文章来学习，也算是一个循序渐进的过程，文章短短的也好接受（老罗的Android之旅尼玛有些文章长的我都没信心看了）。如果你看到这系列文章，我已经假定你已经把Android M的源码下载下来了。</p>
+<h4 id="计划大纲"><a href="#计划大纲" class="headerlink" title="计划大纲"></a>计划大纲</h4><ol>
+<li><p>ActionBar是Android UI的一个重要组成部分，是系统自动为应用窗口集成的。当应用使用了设备主题（DeviceDefault）、Material主题和Holo主题，系统就会加载用于实现ActionBar功能的View。然后应用通过ActionBar这个类提供的接口来控制显示或使用其功能。那么窗口集成的过程是怎样的，首先会对其进行剖析——<a href="/2016/05/19/window-add-action-bar/">Android中窗口添加ActionBar</a></p>
+</li>
+<li><p>ActionBar是由众多View来共同实现的，那么每个View的作用和之间的关系是怎样的，会在第二篇文章来学习。</p>
+</li>
+<li><p>Toolbar，作为ActionBar最重要的功能实现View，以及Google非常推荐应用开发者放弃使用系统ActionBar而把Toolbar作为自己布局的一部分，然后调用setActionBar（或appcompat中的setSupportActionBar）方法来实现ActionBar的某些功能，它到底神奇在哪，第三篇文章来详细学习Toolbar的实现。</p>
+</li>
+<li><p>使用ActionBar，应该必不可少有option menu，ActionBar上的菜单也涉及非常多类。第四篇文章就来学习ActionBar如何加载和现实菜单。</p>
+</li>
+<li><p>option menu点击之后是如何回调到Activity中的<code>onOptionMenuSelected</code>方法的，第五篇文章来梳理菜单的点击响应流程。</p>
+</li>
+</ol>
+<p>这五篇文章完成后，对ActionBar应该都会有个感性并理性的认识，从此就不再觉得ActionBar有多神秘和厉害（当你对一样东西熟悉了就会觉得不过如是）。</p>
 
       
     </div>
@@ -224,15 +241,20 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/05/15/action-bar-plan/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/05/19/window-add-action-bar/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          Android ActionBar计划
+          Android中窗口添加ActionBar
         
       </div>
     </a>
   
+  
+    <a href="/2016/04/24/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">首篇</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
   
 </nav>
 
@@ -265,7 +287,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="hello-world" data-title="首篇" data-url="http://you-x.github.io/2016/04/24/hello-world/"></div>
+	<div class="ds-thread" data-thread-key="action-bar-plan" data-title="Android ActionBar计划" data-url="http://you-x.github.io/2016/05/15/action-bar-plan/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
