@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="苏">
 <meta property="og:description" content="有没有想过，在eclipse或studio中创建一个android项目，自动生成app工程后直接运行就能看到ActionBar的存在，而且看工程代码里并没有添加ActionBar相关的代码，这是为什么呢？很显然，在默认的情况下，系统（或兼容库）提供的窗口已集成了ActionBar，应用开发只需要使用它即可。
 在应用setContentView的时候，系统会为这个窗口添加一个基础的布局来作为应用内容">
-<meta property="og:updated_time" content="2016-05-19T05:20:41.000Z">
+<meta property="og:updated_time" content="2016-05-21T04:08:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android中窗口添加ActionBar">
 <meta name="twitter:description" content="有没有想过，在eclipse或studio中创建一个android项目，自动生成app工程后直接运行就能看到ActionBar的存在，而且看工程代码里并没有添加ActionBar相关的代码，这是为什么呢？很显然，在默认的情况下，系统（或兼容库）提供的窗口已集成了ActionBar，应用开发只需要使用它即可。
@@ -76,7 +76,7 @@
 						<li>Tags</li>
 						
 						
-						<li>About</li>
+						<li>Über</li>
 						
 					</ul>
 				</div>
@@ -109,7 +109,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/ActionBar/" style="font-size: 20px;">ActionBar</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Window/" style="font-size: 10px;">Window</a>
+						<a href="/tags/ActionBar/" style="font-size: 15px;">ActionBar</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Android-Studio/" style="font-size: 10px;">Android Studio</a> <a href="/tags/Window/" style="font-size: 10px;">Window</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/jni/" style="font-size: 10px;">jni</a>
 					</div>
 				</section>
 				
@@ -210,222 +210,19 @@
       
         <p>有没有想过，在eclipse或studio中创建一个android项目，自动生成app工程后直接运行就能看到ActionBar的存在，而且看工程代码里并没有添加ActionBar相关的代码，这是为什么呢？很显然，在默认的情况下，系统（或兼容库）提供的窗口已集成了ActionBar，应用开发只需要使用它即可。</p>
 <p>在应用setContentView的时候，系统会为这个窗口添加一个基础的布局来作为应用内容的容器。在Activity中setContentView最终会调用到PhoneWindow中的setContentView方法（关于PhoneWindow的构造过程可以参考其它资料），PhoneWindow是管理窗口基础内容的类。看看它的setContentView方法：</p>
-<pre><code>@Override
-public void setContentView(int layoutResID) {
-    if (mContentParent == null) {
-        installDecor();
-    } else {
-        mContentParent.removeAllViews();
-    }
-    mLayoutInflater.inflate(layoutResID, mContentParent);
-    final Callback cb = getCallback();
-    if (cb != null &amp;&amp; !isDestroyed()) {
-        cb.onContentChanged();
-    }
-}
-</code></pre><p>可以看到应用的content是添加到一个用变量mContentParent指向的布局类中，而installDecor方法就是初始化这个mContentParent的地方</p>
-<pre><code>private void installDecor() {
-    if (mDecor == null) {
-        mDecor = generateDecor();
-        mDecor.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
-        mDecor.setIsRootNamespace(true);
-    }
-    if (mContentParent == null) {
-        mContentParent = generateLayout(mDecor);
-
-        ....
-    }
-}
-
-
-protected ViewGroup generateLayout(DecorView decor) {
-    // Apply data from current theme.
-    TypedArray a = getWindowStyle();
-
-    ....
-
-    // 从主题中读取窗口属性，是否无标题和是否需要ActionBar，这两个属性会影响ActionBar的有无
-    if (a.getBoolean(com.android.internal.R.styleable.Window_windowNoTitle, false)) {
-        requestFeature(FEATURE_NO_TITLE);
-    } else if (a.getBoolean(com.android.internal.R.styleable.Window_windowActionBar, false)) {
-        // Don&apos;t allow an action bar if there is no title.
-        requestFeature(FEATURE_ACTION_BAR);
-    }
-
-    ....
-
-
-    // Inflate the window decor.
-    int layoutResource;
-    int features = getLocalFeatures();
-    // System.out.println(&quot;Features: 0x&quot; + Integer.toHexString(features));
-    if ((features &amp; ((1 &lt;&lt; FEATURE_LEFT_ICON) | (1 &lt;&lt; FEATURE_RIGHT_ICON))) != 0) {
-        ...
-
-    } else if ((features &amp; ((1 &lt;&lt; FEATURE_PROGRESS) | (1 &lt;&lt; FEATURE_INDETERMINATE_PROGRESS))) != 0
-            &amp;&amp; (features &amp; (1 &lt;&lt; FEATURE_ACTION_BAR)) == 0) {
-
-        ...
-
-    } else if ((features &amp; (1 &lt;&lt; FEATURE_CUSTOM_TITLE)) != 0) {
-
-
-        ...
-
-    } else if ((features &amp; (1 &lt;&lt; FEATURE_NO_TITLE)) == 0) {
-        // 如果主题中没有请求上面奇怪的属性，就会进入到这里。一般应用使用的设备主题（DeviceDefault）、Material主题和Holo主题，都会进入到这里
-        // If no other features and not embedded, only need a title.
-        // If the window is floating, we need a dialog layout
-        if (mIsFloating) {
-            TypedValue res = new TypedValue();
-            getContext().getTheme().resolveAttribute(
-                    com.android.internal.R.attr.dialogTitleDecorLayout, res, true);
-            layoutResource = res.resourceId;
-        } else if ((features &amp; (1 &lt;&lt; FEATURE_ACTION_BAR)) != 0) {// 如果不是浮动窗口并且有ActionBar特效（上面requestFeature加入的）
-            if ((features &amp; (1 &lt;&lt; FEATURE_ACTION_BAR_OVERLAY)) != 0) {
-                layoutResource = com.android.internal.R.layout.screen_action_bar_overlay;
-            } else {
-                // 一般也不会请求overlay模式的ActionBar
-                layoutResource = com.android.internal.R.layout.screen_action_bar;
-            }
-        } else {
-            layoutResource = com.android.internal.R.layout.screen_title;
-        }
-        // System.out.println(&quot;Title!&quot;);
-    } else {
-        ...
-    }
-    mDecor.startChanging();
-
-    // 使用带有ActionBar的布局，把它加入整个窗口的root view——decorView中
-    View in = mLayoutInflater.inflate(layoutResource, null);
-    decor.addView(in, new ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT));
-
-    // 从当前view tree中找到id为content的view group作为应用content的容器
-    ViewGroup contentParent = (ViewGroup)findViewById(ID_ANDROID_CONTENT);
-    if (contentParent == null) {
-        throw new RuntimeException(&quot;Window couldn&apos;t find content container view&quot;);
-    }
-
-    ...
-
-    mDecor.finishChanging();
-    return contentParent;
-}
-</code></pre><p>上面看到在installDecor过程中，使用一个布局文件inflate进整个窗口的view tree中。这个布局文件就是前面说的窗口的基础布局。我们看看带有ActionBar的布局是怎样的，找到screen_action_bar.xml这个文件：</p>
-<pre><code>&lt;com.android.internal.widget.ActionBarOverlayLayout
-    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
-    android:id=&quot;@+id/decor_content_parent&quot;
-    android:layout_width=&quot;match_parent&quot;
-    android:layout_height=&quot;match_parent&quot;
-    android:splitMotionEvents=&quot;false&quot;
-    android:theme=&quot;?attr/actionBarTheme&quot;&gt;
-    &lt;FrameLayout android:id=&quot;@android:id/content&quot;
-                 android:layout_width=&quot;match_parent&quot;
-                 android:layout_height=&quot;match_parent&quot; /&gt;
-    &lt;com.android.internal.widget.ActionBarContainer
-        android:id=&quot;@+id/action_bar_container&quot;
-        android:layout_width=&quot;match_parent&quot;
-        android:layout_height=&quot;wrap_content&quot;
-        android:layout_alignParentTop=&quot;true&quot;
-        style=&quot;?attr/actionBarStyle&quot;
-        android:transitionName=&quot;android:action_bar&quot;
-        android:touchscreenBlocksFocus=&quot;true&quot;
-        android:gravity=&quot;top&quot;&gt;
-        &lt;com.android.internal.widget.ActionBarView
-            android:id=&quot;@+id/action_bar&quot;
-            android:layout_width=&quot;match_parent&quot;
-            android:layout_height=&quot;wrap_content&quot;
-            style=&quot;?attr/actionBarStyle&quot; /&gt;
-        &lt;com.android.internal.widget.ActionBarContextView
-            android:id=&quot;@+id/action_context_bar&quot;
-            android:layout_width=&quot;match_parent&quot;
-            android:layout_height=&quot;wrap_content&quot;
-            android:visibility=&quot;gone&quot;
-            style=&quot;?attr/actionModeStyle&quot; /&gt;
-    &lt;/com.android.internal.widget.ActionBarContainer&gt;
-    &lt;com.android.internal.widget.ActionBarContainer android:id=&quot;@+id/split_action_bar&quot;
-                  android:layout_width=&quot;match_parent&quot;
-                  android:layout_height=&quot;wrap_content&quot;
-                  style=&quot;?attr/actionBarSplitStyle&quot;
-                  android:visibility=&quot;gone&quot;
-                  android:touchscreenBlocksFocus=&quot;true&quot;
-                  android:gravity=&quot;center&quot;/&gt;
-&lt;/com.android.internal.widget.ActionBarOverlayLayout&gt;
-</code></pre><p>看到这个布局中的view你应该明白点什么了吧，那么多带“ActionBar”字样的view，明显就是一套为ActionBar服务的布局。于是也应该纠正认为ActionBar就是一个view的想法，有许多view为ActionBar的功能服务呢。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public void setContentView(int layoutResID) &#123;</span><br><span class="line">    if (mContentParent == null) &#123;</span><br><span class="line">        installDecor();</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        mContentParent.removeAllViews();</span><br><span class="line">    &#125;</span><br><span class="line">    mLayoutInflater.inflate(layoutResID, mContentParent);</span><br><span class="line">    final Callback cb = getCallback();</span><br><span class="line">    if (cb != null &amp;&amp; !isDestroyed()) &#123;</span><br><span class="line">        cb.onContentChanged();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到应用的content是添加到一个用变量mContentParent指向的布局类中，而installDecor方法就是初始化这个mContentParent的地方</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line">private void installDecor() &#123;</span><br><span class="line">    if (mDecor == null) &#123;</span><br><span class="line">        mDecor = generateDecor();</span><br><span class="line">        mDecor.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);</span><br><span class="line">        mDecor.setIsRootNamespace(true);</span><br><span class="line">    &#125;</span><br><span class="line">    if (mContentParent == null) &#123;</span><br><span class="line">        mContentParent = generateLayout(mDecor);</span><br><span class="line"></span><br><span class="line">        ....</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">protected ViewGroup generateLayout(DecorView decor) &#123;</span><br><span class="line">    // Apply data from current theme.</span><br><span class="line">    TypedArray a = getWindowStyle();</span><br><span class="line"></span><br><span class="line">....</span><br><span class="line"></span><br><span class="line">// 从主题中读取窗口属性，是否无标题和是否需要ActionBar，这两个属性会影响ActionBar的有无</span><br><span class="line">    if (a.getBoolean(com.android.internal.R.styleable.Window_windowNoTitle, false)) &#123;</span><br><span class="line">        requestFeature(FEATURE_NO_TITLE);</span><br><span class="line">    &#125; else if (a.getBoolean(com.android.internal.R.styleable.Window_windowActionBar, false)) &#123;</span><br><span class="line">        // Don&apos;t allow an action bar if there is no title.</span><br><span class="line">        requestFeature(FEATURE_ACTION_BAR);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ....</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    // Inflate the window decor.</span><br><span class="line">    int layoutResource;</span><br><span class="line">    int features = getLocalFeatures();</span><br><span class="line">    // System.out.println(&quot;Features: 0x&quot; + Integer.toHexString(features));</span><br><span class="line">    if ((features &amp; ((1 &lt;&lt; FEATURE_LEFT_ICON) | (1 &lt;&lt; FEATURE_RIGHT_ICON))) != 0) &#123;</span><br><span class="line">        ...</span><br><span class="line"></span><br><span class="line">    &#125; else if ((features &amp; ((1 &lt;&lt; FEATURE_PROGRESS) | (1 &lt;&lt; FEATURE_INDETERMINATE_PROGRESS))) != 0</span><br><span class="line">            &amp;&amp; (features &amp; (1 &lt;&lt; FEATURE_ACTION_BAR)) == 0) &#123;</span><br><span class="line"></span><br><span class="line">        ...</span><br><span class="line"></span><br><span class="line">    &#125; else if ((features &amp; (1 &lt;&lt; FEATURE_CUSTOM_TITLE)) != 0) &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	...</span><br><span class="line"></span><br><span class="line">    &#125; else if ((features &amp; (1 &lt;&lt; FEATURE_NO_TITLE)) == 0) &#123;</span><br><span class="line">    	// 如果主题中没有请求上面奇怪的属性，就会进入到这里。一般应用使用的设备主题（DeviceDefault）、Material主题和Holo主题，都会进入到这里</span><br><span class="line">        // If no other features and not embedded, only need a title.</span><br><span class="line">        // If the window is floating, we need a dialog layout</span><br><span class="line">        if (mIsFloating) &#123;</span><br><span class="line">            TypedValue res = new TypedValue();</span><br><span class="line">            getContext().getTheme().resolveAttribute(</span><br><span class="line">                    com.android.internal.R.attr.dialogTitleDecorLayout, res, true);</span><br><span class="line">            layoutResource = res.resourceId;</span><br><span class="line">        &#125; else if ((features &amp; (1 &lt;&lt; FEATURE_ACTION_BAR)) != 0) &#123;// 如果不是浮动窗口并且有ActionBar特效（上面requestFeature加入的）</span><br><span class="line">            if ((features &amp; (1 &lt;&lt; FEATURE_ACTION_BAR_OVERLAY)) != 0) &#123;</span><br><span class="line">                layoutResource = com.android.internal.R.layout.screen_action_bar_overlay;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">            	// 一般也不会请求overlay模式的ActionBar</span><br><span class="line">                layoutResource = com.android.internal.R.layout.screen_action_bar;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            layoutResource = com.android.internal.R.layout.screen_title;</span><br><span class="line">        &#125;</span><br><span class="line">        // System.out.println(&quot;Title!&quot;);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">    mDecor.startChanging();</span><br><span class="line"></span><br><span class="line">    // 使用带有ActionBar的布局，把它加入整个窗口的root view——decorView中</span><br><span class="line">    View in = mLayoutInflater.inflate(layoutResource, null);</span><br><span class="line">    decor.addView(in, new ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT));</span><br><span class="line"></span><br><span class="line">    // 从当前view tree中找到id为content的view group作为应用content的容器</span><br><span class="line">    ViewGroup contentParent = (ViewGroup)findViewById(ID_ANDROID_CONTENT);</span><br><span class="line">    if (contentParent == null) &#123;</span><br><span class="line">        throw new RuntimeException(&quot;Window couldn&apos;t find content container view&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    mDecor.finishChanging();</span><br><span class="line">    return contentParent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面看到在installDecor过程中，使用一个布局文件inflate进整个窗口的view tree中。这个布局文件就是前面说的窗口的基础布局。我们看看带有ActionBar的布局是怎样的，找到screen_action_bar.xml这个文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&lt;com.android.internal.widget.ActionBarOverlayLayout</span><br><span class="line">    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    android:id=&quot;@+id/decor_content_parent&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;</span><br><span class="line">    android:splitMotionEvents=&quot;false&quot;</span><br><span class="line">    android:theme=&quot;?attr/actionBarTheme&quot;&gt;</span><br><span class="line">    &lt;FrameLayout android:id=&quot;@android:id/content&quot;</span><br><span class="line">                 android:layout_width=&quot;match_parent&quot;</span><br><span class="line">                 android:layout_height=&quot;match_parent&quot; /&gt;</span><br><span class="line">    &lt;com.android.internal.widget.ActionBarContainer</span><br><span class="line">        android:id=&quot;@+id/action_bar_container&quot;</span><br><span class="line">        android:layout_width=&quot;match_parent&quot;</span><br><span class="line">        android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">        android:layout_alignParentTop=&quot;true&quot;</span><br><span class="line">        style=&quot;?attr/actionBarStyle&quot;</span><br><span class="line">        android:transitionName=&quot;android:action_bar&quot;</span><br><span class="line">        android:touchscreenBlocksFocus=&quot;true&quot;</span><br><span class="line">        android:gravity=&quot;top&quot;&gt;</span><br><span class="line">        &lt;com.android.internal.widget.ActionBarView</span><br><span class="line">            android:id=&quot;@+id/action_bar&quot;</span><br><span class="line">            android:layout_width=&quot;match_parent&quot;</span><br><span class="line">            android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">            style=&quot;?attr/actionBarStyle&quot; /&gt;</span><br><span class="line">        &lt;com.android.internal.widget.ActionBarContextView</span><br><span class="line">            android:id=&quot;@+id/action_context_bar&quot;</span><br><span class="line">            android:layout_width=&quot;match_parent&quot;</span><br><span class="line">            android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">            android:visibility=&quot;gone&quot;</span><br><span class="line">            style=&quot;?attr/actionModeStyle&quot; /&gt;</span><br><span class="line">    &lt;/com.android.internal.widget.ActionBarContainer&gt;</span><br><span class="line">    &lt;com.android.internal.widget.ActionBarContainer android:id=&quot;@+id/split_action_bar&quot;</span><br><span class="line">                  android:layout_width=&quot;match_parent&quot;</span><br><span class="line">                  android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">                  style=&quot;?attr/actionBarSplitStyle&quot;</span><br><span class="line">                  android:visibility=&quot;gone&quot;</span><br><span class="line">                  android:touchscreenBlocksFocus=&quot;true&quot;</span><br><span class="line">                  android:gravity=&quot;center&quot;/&gt;</span><br><span class="line">&lt;/com.android.internal.widget.ActionBarOverlayLayout&gt;</span><br></pre></td></tr></table></figure>
+<p>看到这个布局中的view你应该明白点什么了吧，那么多带“ActionBar”字样的view，明显就是一套为ActionBar服务的布局。于是也应该纠正认为ActionBar就是一个view的想法，有许多view为ActionBar的功能服务呢。</p>
 <p>回到初始化基础布局的流程中，读取两个属性<code>windowNoTitle</code>和<code>windowActionBar</code>来决定是否取带有上述一套ActionBar的view的布局。所以使用<code>Theme.Material.Light.NoActionBar</code>主题来实现没有标题栏的原理就是那么简单：</p>
-<pre><code>&lt;!-- Variant of the material (light) theme with no action bar. --&gt;
-&lt;style name=&quot;Theme.Material.Light.NoActionBar&quot;&gt;
-    &lt;item name=&quot;windowActionBar&quot;&gt;false&lt;/item&gt;
-    &lt;item name=&quot;windowNoTitle&quot;&gt;true&lt;/item&gt;
-&lt;/style&gt;
-</code></pre><p>就是这样，PhoneWindow会根据主题的设置来决定是否要集成一套为ActionBar服务的view。但是现在只是加入了view而已，刚刚说了ActionBar不是一个view，而是一套方法，通过这些方法去控制这些view的行为来实现它的功能。那么ActionBar是怎样和这些view关联在一起的呢？我们看回Activity的<code>getActionBar()</code>方法:</p>
-<pre><code>/**
- * Retrieve a reference to this activity&apos;s ActionBar.
- *
- * @return The Activity&apos;s ActionBar, or null if it does not have one.
- */
-@Nullable
-public ActionBar getActionBar() {
-    initWindowDecorActionBar();
-    return mActionBar;
-}
-
-
-/**
- * Creates a new ActionBar, locates the inflated ActionBarView,
- * initializes the ActionBar with the view, and sets mActionBar.
- */
-private void initWindowDecorActionBar() {
-    Window window = getWindow();
-    // Initializing the window decor can change window feature flags.
-    // Make sure that we have the correct set before performing the test below.
-    window.getDecorView();
-    if (isChild() || !window.hasFeature(Window.FEATURE_ACTION_BAR) || mActionBar != null) {
-        return;
-    }
-    mActionBar = new WindowDecorActionBar(this);
-    mActionBar.setDefaultDisplayHomeAsUpEnabled(mEnableDefaultActionBarUp);
-    mWindow.setDefaultIcon(mActivityInfo.getIconResource());
-    mWindow.setDefaultLogo(mActivityInfo.getLogoResource());
-}
-</code></pre><p>返回ActionBar的引用前进行一次初始化，然后看到真正返回的是<code>WindowDecorActionBar</code>的实例，这个类继承了ActionBar并实现了它的所有方法。在new这个<code>WindowDecorActionBar</code>的时候传人了当前Activity的引用。再看看<code>WindowDecorActionBar</code>的构造方法里做了什么操作</p>
-<pre><code>public WindowDecorActionBar(Activity activity) {
-    mActivity = activity;
-    Window window = activity.getWindow();
-    View decor = window.getDecorView();
-    boolean overlayMode = mActivity.getWindow().hasFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
-    init(decor);
-    if (!overlayMode) {
-        mContentView = decor.findViewById(android.R.id.content);
-    }
-}
-
-
-private void init(View decor) {
-    mOverlayLayout = (ActionBarOverlayLayout) decor.findViewById(
-            com.android.internal.R.id.decor_content_parent);
-    if (mOverlayLayout != null) {
-        mOverlayLayout.setActionBarVisibilityCallback(this);
-    }
-    mDecorToolbar = getDecorToolbar(decor.findViewById(com.android.internal.R.id.action_bar));
-    mContextView = (ActionBarContextView) decor.findViewById(
-            com.android.internal.R.id.action_context_bar);
-    mContainerView = (ActionBarContainer) decor.findViewById(
-            com.android.internal.R.id.action_bar_container);
-    mSplitView = (ActionBarContainer) decor.findViewById(
-            com.android.internal.R.id.split_action_bar);
-    if (mDecorToolbar == null || mContextView == null || mContainerView == null) {
-        throw new IllegalStateException(getClass().getSimpleName() + &quot; can only be used &quot; +
-                &quot;with a compatible window decor layout&quot;);
-    }
-    mContext = mDecorToolbar.getContext();
-    mContextDisplayMode = mDecorToolbar.isSplit() ?
-            CONTEXT_DISPLAY_SPLIT : CONTEXT_DISPLAY_NORMAL;
-
-    ...
-}
-</code></pre><p>在构造方法里也是做一些初始化的工作，主要是从docor view（window的root view）中find到和ActionBar有关的view并保存到成员变量，那后续就可以控制这些view了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- Variant of the material (light) theme with no action bar. --&gt;</span><br><span class="line">&lt;style name=&quot;Theme.Material.Light.NoActionBar&quot;&gt;</span><br><span class="line">    &lt;item name=&quot;windowActionBar&quot;&gt;false&lt;/item&gt;</span><br><span class="line">    &lt;item name=&quot;windowNoTitle&quot;&gt;true&lt;/item&gt;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+<p>就是这样，PhoneWindow会根据主题的设置来决定是否要集成一套为ActionBar服务的view。但是现在只是加入了view而已，刚刚说了ActionBar不是一个view，而是一套方法，通过这些方法去控制这些view的行为来实现它的功能。那么ActionBar是怎样和这些view关联在一起的呢？我们看回Activity的<code>getActionBar()</code>方法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Retrieve a reference to this activity&apos;s ActionBar.</span><br><span class="line"> *</span><br><span class="line"> * @return The Activity&apos;s ActionBar, or null if it does not have one.</span><br><span class="line"> */</span><br><span class="line">@Nullable</span><br><span class="line">public ActionBar getActionBar() &#123;</span><br><span class="line">    initWindowDecorActionBar();</span><br><span class="line">    return mActionBar;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Creates a new ActionBar, locates the inflated ActionBarView,</span><br><span class="line"> * initializes the ActionBar with the view, and sets mActionBar.</span><br><span class="line"> */</span><br><span class="line">private void initWindowDecorActionBar() &#123;</span><br><span class="line">    Window window = getWindow();</span><br><span class="line">    // Initializing the window decor can change window feature flags.</span><br><span class="line">    // Make sure that we have the correct set before performing the test below.</span><br><span class="line">    window.getDecorView();</span><br><span class="line">    if (isChild() || !window.hasFeature(Window.FEATURE_ACTION_BAR) || mActionBar != null) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    mActionBar = new WindowDecorActionBar(this);</span><br><span class="line">    mActionBar.setDefaultDisplayHomeAsUpEnabled(mEnableDefaultActionBarUp);</span><br><span class="line">    mWindow.setDefaultIcon(mActivityInfo.getIconResource());</span><br><span class="line">    mWindow.setDefaultLogo(mActivityInfo.getLogoResource());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>返回ActionBar的引用前进行一次初始化，然后看到真正返回的是<code>WindowDecorActionBar</code>的实例，这个类继承了ActionBar并实现了它的所有方法。在new这个<code>WindowDecorActionBar</code>的时候传人了当前Activity的引用。再看看<code>WindowDecorActionBar</code>的构造方法里做了什么操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public WindowDecorActionBar(Activity activity) &#123;</span><br><span class="line">    mActivity = activity;</span><br><span class="line">    Window window = activity.getWindow();</span><br><span class="line">    View decor = window.getDecorView();</span><br><span class="line">    boolean overlayMode = mActivity.getWindow().hasFeature(Window.FEATURE_ACTION_BAR_OVERLAY);</span><br><span class="line">    init(decor);</span><br><span class="line">    if (!overlayMode) &#123;</span><br><span class="line">        mContentView = decor.findViewById(android.R.id.content);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">private void init(View decor) &#123;</span><br><span class="line">    mOverlayLayout = (ActionBarOverlayLayout) decor.findViewById(</span><br><span class="line">            com.android.internal.R.id.decor_content_parent);</span><br><span class="line">    if (mOverlayLayout != null) &#123;</span><br><span class="line">        mOverlayLayout.setActionBarVisibilityCallback(this);</span><br><span class="line">    &#125;</span><br><span class="line">    mDecorToolbar = getDecorToolbar(decor.findViewById(com.android.internal.R.id.action_bar));</span><br><span class="line">    mContextView = (ActionBarContextView) decor.findViewById(</span><br><span class="line">            com.android.internal.R.id.action_context_bar);</span><br><span class="line">    mContainerView = (ActionBarContainer) decor.findViewById(</span><br><span class="line">            com.android.internal.R.id.action_bar_container);</span><br><span class="line">    mSplitView = (ActionBarContainer) decor.findViewById(</span><br><span class="line">            com.android.internal.R.id.split_action_bar);</span><br><span class="line">    if (mDecorToolbar == null || mContextView == null || mContainerView == null) &#123;</span><br><span class="line">        throw new IllegalStateException(getClass().getSimpleName() + &quot; can only be used &quot; +</span><br><span class="line">                &quot;with a compatible window decor layout&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    mContext = mDecorToolbar.getContext();</span><br><span class="line">    mContextDisplayMode = mDecorToolbar.isSplit() ?</span><br><span class="line">            CONTEXT_DISPLAY_SPLIT : CONTEXT_DISPLAY_NORMAL;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在构造方法里也是做一些初始化的工作，主要是从docor view（window的root view）中find到和ActionBar有关的view并保存到成员变量，那后续就可以控制这些view了。</p>
 <p>至此，窗口就为应用集成了ActionBar</p>
 
       
@@ -435,6 +232,15 @@ private void init(View decor) {
   
     
 <nav id="article-nav">
+  
+    <a href="/2016/05/20/jni_in_android_studio/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Android Studio加入jni模块并调试jni代码
+        
+      </div>
+    </a>
   
   
     <a href="/2016/05/15/action-bar-plan/" id="article-nav-older" class="article-nav-link-wrap">
