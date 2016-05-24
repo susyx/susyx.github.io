@@ -220,9 +220,9 @@
 </li>
 <li><p>在MainActivity中加载jni模块并声明native方法：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">static &#123;</span><br><span class="line">    System.loadLibrary(&quot;hello-ndk&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private native String getStringNative();</span><br></pre></td></tr></table></figure>
-<p> 此时studio会提示找不到该方法。使用快捷键<code>alt+enter</code>，这时会弹出解决方法列表，选择创建c方法，studio会自动创建一个和模块名相同的c文件，但并不会自定创建方法。</p>
+<p> 此时studio会提示找不到该方法。使用快捷键<code>alt+enter</code>，这时会弹出解决方法列表，选择创建c方法，studio会自动创建一个和模块名相同的c文件，但并不会自动创建方法。</p>
 </li>
-<li><p>手动编写c方法，如果没有显示去配置java方法和c方法的对应关系，c方法名默认应该是<strong>Java+包路径（.用下划线_替换）+类名+加方法名</strong>，对应<code>getStringNative</code>方法，这样写：</p>
+<li><p>手动编写c方法，如果没有显式去配置java方法和c方法的对应关系，c方法名默认应该是<strong>Java+包路径（.用下划线_替换）+类名+加方法名</strong>，对应<code>getStringNative</code>方法，这样写：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">JNIEXPORT jstring JNICALL Java_com_meizu_flyme_awesomendk_MainActivity_getStringNative(JNIEnv *env, jobject instance) &#123;</span><br><span class="line">    // TODO</span><br><span class="line"></span><br><span class="line">    return (*env)-&gt;NewStringUTF(env, &quot;Hello from JNI !&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>ps：<strong>如果你是copy上面这段代码，注意方法名要和你应用的实际情况相符</strong></p>
 </li>
