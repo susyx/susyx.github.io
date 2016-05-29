@@ -1,224 +1,213 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Android ActionBar计划 | 苏</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="开始写博客吧！
+    <meta charset="utf-8">
+    
+    <title>Android ActionBar计划 | Su&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="开始写博客吧！
 ActionBar学习计划前言对着ActionBar也有一段时间了，算是比较熟也能拿得出场子的东西，就以它作为开山之作吧。
 想了解一下ActionBar的历史，猛的发现我们大神的博客有介绍ActionBar的使用，还十分详细，想了解用法的可以去看看：http://blog.csdn.net/xyz_lmn/article/details/8132420。
 这里我就不废话Action">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android ActionBar计划">
 <meta property="og:url" content="http://you-x.github.io/2016/05/15/action-bar-plan/index.html">
-<meta property="og:site_name" content="苏">
+<meta property="og:site_name" content="Su's Blog">
 <meta property="og:description" content="开始写博客吧！
 ActionBar学习计划前言对着ActionBar也有一段时间了，算是比较熟也能拿得出场子的东西，就以它作为开山之作吧。
 想了解一下ActionBar的历史，猛的发现我们大神的博客有介绍ActionBar的使用，还十分详细，想了解用法的可以去看看：http://blog.csdn.net/xyz_lmn/article/details/8132420。
 这里我就不废话Action">
-<meta property="og:updated_time" content="2016-05-19T05:24:34.000Z">
+<meta property="og:updated_time" content="2016-05-25T02:10:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android ActionBar计划">
 <meta name="twitter:description" content="开始写博客吧！
 ActionBar学习计划前言对着ActionBar也有一段时间了，算是比较熟也能拿得出场子的东西，就以它作为开山之作吧。
 想了解一下ActionBar的历史，猛的发现我们大神的博客有介绍ActionBar的使用，还十分详细，想了解用法的可以去看看：http://blog.csdn.net/xyz_lmn/article/details/8132420。
 这里我就不废话Action">
-  
-    <link rel="alternative" href="/atom.xml" title="苏" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  <link rel="stylesheet" href="/css/style.css">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/fancybox/jquery.fancybox.css">
+    
+    
+    
+    
+
 </head>
-
 <body>
-  <div id="container">
-    <div class="left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-	<header id="header" class="inner">
-		<a href="/" class="profilepic">
-			
-			<img lazy-src="https://avatars1.githubusercontent.com/u/3890510?v=3&amp;s=460" class="js-avatar">
-			
-		</a>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                
+                <span class="site-title">Su&#39;s Blog</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="https://avatars1.githubusercontent.com/u/3890510?v=3&amp;s=460" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
 
-		<hgroup>
-		  <h1 class="header-author"><a href="/">suyouxiong</a></h1>
-		</hgroup>
-
-		
-		<p class="header-subtitle">写文档好麻烦啊</p>
-		
-
-		
-			<div class="switch-btn">
-				<div class="icon">
-					<div class="icon-ctn">
-						<div class="icon-wrap icon-house" data-idx="0">
-							<div class="birdhouse"></div>
-							<div class="birdhouse_holes"></div>
-						</div>
-						<div class="icon-wrap icon-ribbon hide" data-idx="1">
-							<div class="ribbon"></div>
-						</div>
-						
-						
-						<div class="icon-wrap icon-me hide" data-idx="3">
-							<div class="user"></div>
-							<div class="shoulder"></div>
-						</div>
-						
-					</div>
-					
-				</div>
-				<div class="tips-box hide">
-					<div class="tips-arrow"></div>
-					<ul class="tips-inner">
-						<li>Menu</li>
-						<li>Tags</li>
-						
-						
-						<li>About</li>
-						
-					</ul>
-				</div>
-			</div>
-		
-
-		<div class="switch-area">
-			<div class="switch-wrap">
-				<section class="switch-part switch-part1">
-					<nav class="header-menu">
-						<ul>
-						
-							<li><a href="/">主页</a></li>
-				        
-							<li><a href="/archives">所有文章</a></li>
-				        
-						</ul>
-					</nav>
-					<nav class="header-nav">
-						<div class="social">
-							
-								<a class="github" target="_blank" href="https://github.com/you-x" title="github">github</a>
-					        
-								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/quietx" title="zhihu">zhihu</a>
-					        
-						</div>
-					</nav>
-				</section>
-				
-				
-				<section class="switch-part switch-part2">
-					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/ActionBar/" style="font-size: 15px;">ActionBar</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Android-Studio/" style="font-size: 10px;">Android Studio</a> <a href="/tags/Window/" style="font-size: 10px;">Window</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/jni/" style="font-size: 10px;">jni</a>
-					</div>
-				</section>
-				
-				
-				
-
-				
-				
-				<section class="switch-part switch-part3">
-				
-					<div id="js-aboutme">死写代码的</div>
-				</section>
-				
-			</div>
-		</div>
-	</header>				
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Rechercher" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
 </div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Articles',
+            PAGES: 'Pages',
+            CATEGORIES: 'Catégories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
 
+</div>
+        </div>
     </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-  	<div class="overlay">
-  		<div class="slider-trigger"></div>
-  		<h1 class="header-author js-mobile-header hide">suyouxiong</h1>
-  	</div>
-	<div class="intrude-less">
-		<header id="header" class="inner">
-			<div class="profilepic">
-			
-				<img lazy-src="https://avatars1.githubusercontent.com/u/3890510?v=3&amp;s=460" class="js-avatar">
-			
-			</div>
-			<hgroup>
-			  <h1 class="header-author">suyouxiong</h1>
-			</hgroup>
-			
-			<p class="header-subtitle">写文档好麻烦啊</p>
-			
-			<nav class="header-menu">
-				<ul>
-				
-					<li><a href="/">主页</a></li>
-		        
-					<li><a href="/archives">所有文章</a></li>
-		        
-		        <div class="clearfix"></div>
-				</ul>
-			</nav>
-			<nav class="header-nav">
-				<div class="social">
-					
-						<a class="github" target="_blank" href="https://github.com/you-x" title="github">github</a>
-			        
-						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/quietx" title="zhihu">zhihu</a>
-			        
-				</div>
-			</nav>
-		</header>				
-	</div>
-</nav>
-
-      <div class="body-wrap"><article id="post-action-bar-plan" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/05/15/action-bar-plan/" class="article-date">
-  	<time datetime="2016-05-15T02:45:28.000Z" itemprop="datePublished">2016-05-15</time>
-</a>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Rechercher" />
     </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Android ActionBar计划
-    </h1>
-  
 
-      </header>
-      
-      <div class="article-info article-info-post">
-        
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ActionBar/">ActionBar</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-	</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
 
-        
+        <div class="outer">
+            
+                
 
-        <div class="clearfix"></div>
-      </div>
-      
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="https://avatars1.githubusercontent.com/u/3890510?v=3&amp;s=460" />
+            <h2 id="name">Su Youxiong</h2>
+            <h3 id="title">Code Vegetable Bird</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>Guangdong, China</span>
+            <a id="follow" target="_blank" href="https://github.com/you-x/">SUIVRE</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                5
+                <span>Articles</span>
+            </div>
+            <div class="article-info-block">
+                7
+                <span>Tags</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    <td><a href="http://github.com/you-x" target="_blank" title="github"><i class="fa fa-github"></i></a></td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-action-bar-plan" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+        
+            <header class="article-header">
+                
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>开始写博客吧！</strong></p>
+        <h1 class="article-title" itemprop="name">
+            Android ActionBar计划
+        </h1>
+    
+
+                <div class="article-meta">
+                    
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2016/05/15/action-bar-plan/">
+            <time datetime="2016-05-15T02:45:28.000Z" itemprop="datePublished">2016-05-15</time>
+        </a>
+    </div>
+
+
+                    
+                    
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/ActionBar/">ActionBar</a>, <a class="tag-link" href="/tags/Android/">Android</a>
+    </div>
+
+                </div>
+            </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p><strong>开始写博客吧！</strong></p>
 <h3 id="ActionBar学习计划"><a href="#ActionBar学习计划" class="headerlink" title="ActionBar学习计划"></a>ActionBar学习计划</h3><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>对着ActionBar也有一段时间了，算是比较熟也能拿得出场子的东西，就以它作为开山之作吧。</p>
 <p>想了解一下ActionBar的历史，猛的发现我们大神的博客有介绍ActionBar的使用，还十分详细，想了解用法的可以去看看：<a href="http://blog.csdn.net/xyz_lmn/article/details/8132420" target="_blank" rel="external">http://blog.csdn.net/xyz_lmn/article/details/8132420</a>。</p>
 <p>这里我就不废话ActionBar的前世今生了。虽然从Android 4.4开始，我就接触ActionBar，但我并不想再去详细说旧版本的东西，这是ActionBar的学习计划，我也本着学习的心态从较新的Android M版本出发来介绍ActionBar的实现。</p>
 <p>由于ActionBar是一个比较庞大的组件，它并不是一个独立的View，是由许多View和控制辅助类来共同实现的，另外我是博客菜鸟，文章写的比较慢，如果要把一整套完成后才发布可能要等到猴年马月，所以打算是把它分成一系列的文章来学习，也算是一个循序渐进的过程，文章短短的也好接受（老罗的Android之旅尼玛有些文章长的我都没信心看了）。如果你看到这系列文章，我已经假定你已经把Android M的源码下载下来了。</p>
+<a id="more"></a>
 <h4 id="计划大纲"><a href="#计划大纲" class="headerlink" title="计划大纲"></a>计划大纲</h4><ol>
 <li><p>ActionBar是Android UI的一个重要组成部分，是系统自动为应用窗口集成的。当应用使用了设备主题（DeviceDefault）、Material主题和Holo主题，系统就会加载用于实现ActionBar功能的View。然后应用通过ActionBar这个类提供的接口来控制显示或使用其功能。那么窗口集成的过程是怎样的，首先会对其进行剖析——<a href="/2016/05/19/window-add-action-bar/">Android中窗口添加ActionBar</a></p>
 </li>
@@ -233,120 +222,268 @@ ActionBar学习计划前言对着ActionBar也有一段时间了，算是比较�
 </ol>
 <p>这五篇文章完成后，对ActionBar应该都会有个感性并理性的认识，从此就不再觉得ActionBar有多神秘和厉害（当你对一样东西熟悉了就会觉得不过如是）。</p>
 
-      
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+            
+    
+
+        </footer>
     </div>
     
-  </div>
-  
-    
+        
 <nav id="article-nav">
-  
-    <a href="/2016/05/19/window-add-action-bar/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          Android中窗口添加ActionBar
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2016/04/24/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">首篇</div>
-      <strong class="article-nav-caption">></strong>
-    </a>
-  
+    
+        <a href="/2016/05/19/window-add-action-bar/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Plus récent</strong>
+            <div class="article-nav-title">
+                
+                    Android中窗口添加ActionBar
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2016/04/24/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Plus ancien</strong>
+            <div class="article-nav-title">首篇</div>
+        </a>
+    
 </nav>
 
-  
+
+    
 </article>
 
 
-<div class="share_jia">
-	<!-- JiaThis Button BEGIN -->
-	<div class="jiathis_style">
-		<span class="jiathis_txt">Share to: &nbsp; </span>
-		<a class="jiathis_button_facebook"></a> 
-    <a class="jiathis_button_twitter"></a>
-    <a class="jiathis_button_plus"></a> 
-    <a class="jiathis_button_tsina"></a>
-		<a class="jiathis_button_cqq"></a>
-		<a class="jiathis_button_douban"></a>
-		<a class="jiathis_button_weixin"></a>
-		<a class="jiathis_button_tumblr"></a>
-    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
-	</div>
-	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
-	<!-- JiaThis Button END -->
-</div>
-
-
-
-
-
-
-
-
-</div>
-      <footer id="footer">
-  <div class="outer">
-    <div id="footer-info">
-    	<div class="footer-left">
-    		&copy; 2016 suyouxiong
-    	</div>
-      	<div class="footer-right">
-      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
-      	</div>
-    </div>
-  </div>
-</footer>
-    </div>
     
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+    <section id="comments">
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">Nuage de tags</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/ActionBar/" style="font-size: 15px;">ActionBar</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Android-Studio/" style="font-size: 10px;">Android Studio</a> <a href="/tags/c/" style="font-size: 10px;">c++</a> <a href="/tags/jni/" style="font-size: 10px;">jni</a> <a href="/tags/none/" style="font-size: 10px;">none</a> <a href="/tags/函数指针/" style="font-size: 10px;">函数指针</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">Catégories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/study/">study</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">Récents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/25/study-pointer-of-function/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/study/">study</a></p>
+                            <p class="item-title"><a href="/2016/05/25/study-pointer-of-function/" class="title">聊一下c++中的函数指针</a></p>
+                            <p class="item-date"><time datetime="2016-05-25T15:50:19.000Z" itemprop="datePublished">2016-05-25</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/20/jni_in_android_studio/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/native_debug_error.png)" alt="Android Studio加入jni模块并调试jni代码" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/20/jni_in_android_studio/" class="title">Android Studio加入jni模块并调试jni代码</a></p>
+                            <p class="item-date"><time datetime="2016-05-19T16:02:44.000Z" itemprop="datePublished">2016-05-20</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/19/window-add-action-bar/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/19/window-add-action-bar/" class="title">Android中窗口添加ActionBar</a></p>
+                            <p class="item-date"><time datetime="2016-05-18T16:02:44.000Z" itemprop="datePublished">2016-05-19</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/15/action-bar-plan/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/15/action-bar-plan/" class="title">Android ActionBar计划</a></p>
+                            <p class="item-date"><time datetime="2016-05-15T02:45:28.000Z" itemprop="datePublished">2016-05-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/04/24/hello-world/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/04/24/hello-world/" class="title">首篇</a></p>
+                            <p class="item-date"><time datetime="2016-04-24T07:36:52.000Z" itemprop="datePublished">2016-04-24</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">Liens</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
 
 
-<script>
-	var yiliaConfig = {
-		fancybox: true,
-		mathjax: true,
-		animate: true,
-		isHome: false,
-		isPost: true,
-		isArchive: false,
-		isTag: false,
-		isCategory: false,
-		open_in_new: false
-	}
-</script>
-<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2016 suyouxiong<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+
+    
+        <script src="/vendor/fancybox/jquery.fancybox.pack.js"></script>
+    
+
+
+<!-- Custom Scripts -->
 <script src="/js/main.js"></script>
 
-
-
-
-
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    }
-});
-
-MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
-});
-</script>
-
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-
-  </div>
+    </div>
 </body>
 </html>
