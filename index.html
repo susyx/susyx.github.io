@@ -5,15 +5,12 @@
     
     <title>Su&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description">
-<meta property="og:type" content="website">
+    <meta property="og:type" content="website">
 <meta property="og:title" content="Su's Blog">
 <meta property="og:url" content="http://susyx.github.io/index.html">
 <meta property="og:site_name" content="Su's Blog">
-<meta property="og:description">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Su's Blog">
-<meta name="twitter:description">
     
 
     
@@ -66,7 +63,7 @@
             <div id="search-form-wrap">
 
     <form class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <input type="text" class="ins-search-input search-form-input" placeholder="Buscar" />
         <button type="submit" class="search-form-submit"></button>
     </form>
     <div class="ins-search">
@@ -85,10 +82,10 @@
 (function (window) {
     var INSIGHT_CONFIG = {
         TRANSLATION: {
-            POSTS: 'Posts',
+            POSTS: 'Entradas',
             PAGES: 'Pages',
-            CATEGORIES: 'Categories',
-            TAGS: 'Tags',
+            CATEGORIES: 'Categorias',
+            TAGS: 'Etiquetas',
             UNTITLED: '(Untitled)',
         },
         ROOT_URL: '/',
@@ -111,7 +108,7 @@
                 <td>
                     
     <div class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <input type="text" class="ins-search-input search-form-input" placeholder="Buscar" />
     </div>
 
                 </td>
@@ -131,16 +128,16 @@
             <h2 id="name">Su Youxiong</h2>
             <h3 id="title">Code Vegetable Bird</h3>
             <span id="location"><i class="fa fa-map-marker"></i>Guangdong, China</span>
-            <a id="follow" target="_blank" href="https://github.com/susyx/">FOLLOW</a>
+            <a id="follow" target="_blank" href="https://github.com/susyx/">SEGUIR</a>
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                6
-                <span>posts</span>
+                7
+                <span>Entradas</span>
             </div>
             <div class="article-info-block">
-                10
-                <span>tags</span>
+                11
+                <span>Etiquetas</span>
             </div>
         </div>
         
@@ -159,6 +156,127 @@
 
             
             <section id="main">
+    <article id="post-action-bar-menu" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2016/07/28/action-bar-menu/">ActionBar Option Menu创建流程</a>
+        </h1>
+    
+
+                <div class="article-meta">
+                    
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2016/07/28/action-bar-menu/">
+            <time datetime="2016-07-28T15:41:55.000Z" itemprop="datePublished">2016-07-28</time>
+        </a>
+    </div>
+
+
+                    
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Android/">Android</a>
+    </div>
+
+                    
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/ActionBar/">ActionBar</a>, <a class="tag-link" href="/tags/Option-Menu/">Option Menu</a>
+    </div>
+
+                </div>
+            </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><h3 id="Option-Menu"><a href="#Option-Menu" class="headerlink" title="Option Menu"></a>Option Menu</h3><p>Option Menu，从翻译来看是“选择菜单”的意思，然而某些专业名词就不应该给它翻译，大家简单认为它是在ActionBar上面的一种菜单即可。在Android中，菜单还有其它几种，例如上下文菜单——Context Menu，弹出菜单——PopupMenu。其中Option Menu和Context Menu都是通过Activity中的回调方法来创建的。</p>
+<p>相信大家也很清楚Option Menu如何使用。在Activity里的回调方法<code>onCreateOptionsMenu</code>方法中添加菜单项到Menu中，并返回<code>true</code>即可：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onCreateOptionsMenu</span><span class="params">(Menu menu)</span> </span>&#123;</div><div class="line">    getMenuInflater().inflate(R.menu.menu_main, menu);</div><div class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后在方法<code>onOptionsItemSelected</code>对菜单项的点击事件进行监听：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onOptionsItemSelected</span><span class="params">(MenuItem item)</span> </span>&#123;</div><div class="line">    <span class="keyword">switch</span> (item.getItemId()) &#123;</div><div class="line">        <span class="keyword">case</span> R.id.action1 :</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        <span class="keyword">case</span> android.R.id.home :</div><div class="line">            onBackPressed();</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.onOptionsItemSelected(item);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Option-Menu创建流程"><a href="#Option-Menu创建流程" class="headerlink" title="Option Menu创建流程"></a>Option Menu创建流程</h3></p>
+            <p class="article-more-link">
+                <a href="/2016/07/28/action-bar-menu/#more">Read More</a>
+            </p>
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+            
+    
+        <a href="http://susyx.github.io/2016/07/28/action-bar-menu/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://susyx.github.io/2016/07/28/action-bar-menu/">Comentarios</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
     <article id="post-github-page-domain" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
@@ -271,7 +389,7 @@
 
             
     
-        <a href="http://susyx.github.io/2016/06/25/github-page-domain/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://susyx.github.io/2016/06/25/github-page-domain/">Comments</a>
+        <a href="http://susyx.github.io/2016/06/25/github-page-domain/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://susyx.github.io/2016/06/25/github-page-domain/">Comentarios</a>
     
 
         </footer>
@@ -389,7 +507,7 @@
 
             
     
-        <a href="http://susyx.github.io/2016/05/25/study-pointer-of-function/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://susyx.github.io/2016/05/25/study-pointer-of-function/">Comments</a>
+        <a href="http://susyx.github.io/2016/05/25/study-pointer-of-function/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://susyx.github.io/2016/05/25/study-pointer-of-function/">Comentarios</a>
     
 
         </footer>
@@ -501,7 +619,7 @@
 
             
     
-        <a href="http://susyx.github.io/2016/05/20/jni_in_android_studio/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://susyx.github.io/2016/05/20/jni_in_android_studio/">Comments</a>
+        <a href="http://susyx.github.io/2016/05/20/jni_in_android_studio/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://susyx.github.io/2016/05/20/jni_in_android_studio/">Comentarios</a>
     
 
         </footer>
@@ -613,7 +731,7 @@
 
             
     
-        <a href="http://susyx.github.io/2016/05/19/window-add-action-bar/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://susyx.github.io/2016/05/19/window-add-action-bar/">Comments</a>
+        <a href="http://susyx.github.io/2016/05/19/window-add-action-bar/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://susyx.github.io/2016/05/19/window-add-action-bar/">Comentarios</a>
     
 
         </footer>
@@ -728,7 +846,7 @@
 
             
     
-        <a href="http://susyx.github.io/2016/05/15/action-bar-plan/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://susyx.github.io/2016/05/15/action-bar-plan/">Comments</a>
+        <a href="http://susyx.github.io/2016/05/15/action-bar-plan/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://susyx.github.io/2016/05/15/action-bar-plan/">Comentarios</a>
     
 
         </footer>
@@ -841,7 +959,7 @@
 
             
     
-        <a href="http://susyx.github.io/2016/04/24/hello-world/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://susyx.github.io/2016/04/24/hello-world/">Comments</a>
+        <a href="http://susyx.github.io/2016/04/24/hello-world/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://susyx.github.io/2016/04/24/hello-world/">Comentarios</a>
     
 
         </footer>
@@ -856,27 +974,46 @@
    
         
     <div class="widget-wrap">
-        <h3 class="widget-title">tag cloud</h3>
+        <h3 class="widget-title">Nube de etiquetas</h3>
         <div class="widget tagcloud">
-            <a href="/tags/ActionBar/" style="font-size: 15px;">ActionBar</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Android-Studio/" style="font-size: 10px;">Android Studio</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/c/" style="font-size: 10px;">c++</a> <a href="/tags/github-pages/" style="font-size: 10px;">github pages</a> <a href="/tags/jni/" style="font-size: 10px;">jni</a> <a href="/tags/none/" style="font-size: 10px;">none</a> <a href="/tags/函数指针/" style="font-size: 10px;">函数指针</a> <a href="/tags/域名/" style="font-size: 10px;">域名</a>
+            <a href="/tags/ActionBar/" style="font-size: 20px;">ActionBar</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Android-Studio/" style="font-size: 10px;">Android Studio</a> <a href="/tags/Option-Menu/" style="font-size: 10px;">Option Menu</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/c/" style="font-size: 10px;">c++</a> <a href="/tags/github-pages/" style="font-size: 10px;">github pages</a> <a href="/tags/jni/" style="font-size: 10px;">jni</a> <a href="/tags/none/" style="font-size: 10px;">none</a> <a href="/tags/函数指针/" style="font-size: 10px;">函数指针</a> <a href="/tags/域名/" style="font-size: 10px;">域名</a>
         </div>
     </div>
 
     
         
     <div class="widget-wrap">
-        <h3 class="widget-title">categories</h3>
+        <h3 class="widget-title">Categorias</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/study/">study</a><span class="category-list-count">1</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/study/">study</a><span class="category-list-count">1</span></li></ul>
         </div>
     </div>
 
     
         
     <div class="widget-wrap">
-        <h3 class="widget-title">recent</h3>
+        <h3 class="widget-title">Recientes</h3>
         <div class="widget">
             <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/07/28/action-bar-menu/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2016/07/28/action-bar-menu/" class="title">ActionBar Option Menu创建流程</a></p>
+                            <p class="item-date"><time datetime="2016-07-28T15:41:55.000Z" itemprop="datePublished">2016-07-28</time></p>
+                        </div>
+                    </li>
                 
                     <li>
                         
@@ -954,25 +1091,6 @@
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2016/05/15/action-bar-plan/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2016/05/15/action-bar-plan/" class="title">Android ActionBar计划</a></p>
-                            <p class="item-date"><time datetime="2016-05-15T02:45:28.000Z" itemprop="datePublished">2016-05-15</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -980,7 +1098,7 @@
     
         
     <div class="widget-wrap widget-list">
-        <h3 class="widget-title">links</h3>
+        <h3 class="widget-title">Links</h3>
         <div class="widget">
             <ul>
                 
@@ -1001,7 +1119,7 @@
         <footer id="footer">
     <div class="outer">
         <div id="footer-info" class="inner">
-            &copy; 2016 suyouxiong<br>
+            &copy; 2019 suyouxiong<br>
             Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
         </div>
     </div>

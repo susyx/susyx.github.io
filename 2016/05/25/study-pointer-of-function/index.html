@@ -73,7 +73,7 @@
             <div id="search-form-wrap">
 
     <form class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <input type="text" class="ins-search-input search-form-input" placeholder="Buscar" />
         <button type="submit" class="search-form-submit"></button>
     </form>
     <div class="ins-search">
@@ -92,10 +92,10 @@
 (function (window) {
     var INSIGHT_CONFIG = {
         TRANSLATION: {
-            POSTS: 'Posts',
+            POSTS: 'Entradas',
             PAGES: 'Pages',
-            CATEGORIES: 'Categories',
-            TAGS: 'Tags',
+            CATEGORIES: 'Categorias',
+            TAGS: 'Etiquetas',
             UNTITLED: '(Untitled)',
         },
         ROOT_URL: '/',
@@ -118,7 +118,7 @@
                 <td>
                     
     <div class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <input type="text" class="ins-search-input search-form-input" placeholder="Buscar" />
     </div>
 
                 </td>
@@ -138,16 +138,16 @@
             <h2 id="name">Su Youxiong</h2>
             <h3 id="title">Code Vegetable Bird</h3>
             <span id="location"><i class="fa fa-map-marker"></i>Guangdong, China</span>
-            <a id="follow" target="_blank" href="https://github.com/susyx/">FOLLOW</a>
+            <a id="follow" target="_blank" href="https://github.com/susyx/">SEGUIR</a>
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                6
-                <span>posts</span>
+                7
+                <span>Entradas</span>
             </div>
             <div class="article-info-block">
-                10
-                <span>tags</span>
+                11
+                <span>Etiquetas</span>
             </div>
         </div>
         
@@ -209,12 +209,12 @@
             <p>最近在学习c++，想一边学习一边做笔记。使用博客来做笔记好像也挺大材小用的，没办法，也在培养写博客的习惯，就随便写一些吧。那么，就来说一下我在学习c++函数指针时的想法。</p>
 <p>说起函数指针，隐约记得大一上c语言这门课有学，然而那时自己愚钝，就是理解不了（或许那时理解了，却忘了）。现在重新学起，感觉没那么吃力了，毕竟有学习了其它语言的积累。</p>
 <p>那么，什么是函数指针？在我理解，就是指向函数的指针。有了这种指针，那么可以把函数进行传递。如果没有指针，一个函数就只能被调用。把函数进行传递，可以有什么作用？下面看一个例子。<br><a id="more"></a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">double add(double, double);</span><br><span class="line">double sub(double, double);</span><br><span class="line"></span><br><span class="line">double operation(double (*pf)(double, double), double, double);</span><br><span class="line"></span><br><span class="line">int main(int argc, char const *argv[]) &#123;</span><br><span class="line">  /* code */</span><br><span class="line">  using namespace std;</span><br><span class="line">  double a = 1.4;</span><br><span class="line">  double b = 1.5;</span><br><span class="line">  cout &lt;&lt; &quot;ensure the operator is:&quot;;</span><br><span class="line">  char op = getchar();</span><br><span class="line">  double (*opf)(double, double);//声明一个函数指针变量，指向的函数结构是有两个double型参数，并且返回double类型的值</span><br><span class="line">  switch (op) &#123;</span><br><span class="line">    case &apos;+&apos;:</span><br><span class="line">      opf = add;</span><br><span class="line">      break;</span><br><span class="line">    case &apos;-&apos;:</span><br><span class="line">      opf = sub;</span><br><span class="line">      break;</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; &quot;the result is :&quot; &lt;&lt; operation(opf, a, b) &lt;&lt; endl;</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">double add(double a, double b) &#123;</span><br><span class="line">  return a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">double sub(double a, double b) &#123;</span><br><span class="line">  return a - b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">double operation(double (*pf)(double, double), double a, double b) &#123;</span><br><span class="line">  return pf(a, b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">#include &lt;iostream&gt;</div><div class="line"></div><div class="line">double add(double, double);</div><div class="line">double sub(double, double);</div><div class="line"></div><div class="line">double operation(double (*pf)(double, double), double, double);</div><div class="line"></div><div class="line">int main(int argc, char const *argv[]) &#123;</div><div class="line">  /* code */</div><div class="line">  using namespace std;</div><div class="line">  double a = 1.4;</div><div class="line">  double b = 1.5;</div><div class="line">  cout &lt;&lt; &quot;ensure the operator is:&quot;;</div><div class="line">  char op = getchar();</div><div class="line">  double (*opf)(double, double);//声明一个函数指针变量，指向的函数结构是有两个double型参数，并且返回double类型的值</div><div class="line">  switch (op) &#123;</div><div class="line">    case &apos;+&apos;:</div><div class="line">      opf = add;</div><div class="line">      break;</div><div class="line">    case &apos;-&apos;:</div><div class="line">      opf = sub;</div><div class="line">      break;</div><div class="line">  &#125;</div><div class="line">  cout &lt;&lt; &quot;the result is :&quot; &lt;&lt; operation(opf, a, b) &lt;&lt; endl;</div><div class="line">  return 0;</div><div class="line">&#125;</div><div class="line"></div><div class="line">double add(double a, double b) &#123;</div><div class="line">  return a + b;</div><div class="line">&#125;</div><div class="line"></div><div class="line">double sub(double a, double b) &#123;</div><div class="line">  return a - b;</div><div class="line">&#125;</div><div class="line"></div><div class="line">double operation(double (*pf)(double, double), double a, double b) &#123;</div><div class="line">  return pf(a, b);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这段程序的目的是接收一个”+”或”-“号字符，然后决定对两个变量进行加法或减法运算，最后输出计算结果。</p>
 <p>首先定义两个函数<code>add</code>和<code>sub</code>，分别用来进行加法和减法运算。然后通过输入的字符来判断，用一个函数指针类型变量<code>opf</code>指向对应的函数（也可以说是函数的地址赋给这个变量）。最后调用<code>opf</code>来进行运算。</p>
 <p>现在可能看不出函数指针有什么优点。但假如运算的种类多了，有了乘除，或者其它符合<code>double ...(double, double)</code>结构的函数。如果不用函数指针，就必须在每个<code>case</code>语句中调用方法，无疑有了重复代码。所以有了函数指针，编程会变得灵活（肯定也还有其它高级的用法）。</p>
 <h3 id="相似的Javascript"><a href="#相似的Javascript" class="headerlink" title="相似的Javascript"></a>相似的Javascript</h3><p>当我知道函数指针的基本使用时，脑海中马上浮现出Javascript中也有类似的使用场景。因为Javascript中函数是一种对象，可以赋值给任意变量。也就是说，Javascript中变量可以指向函数。先看看如何用Javascript实现上面c++的代码。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;title&gt;begin&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;p&gt;ensure the operator is:&lt;/p&gt;</span><br><span class="line">  &lt;input id=&quot;operator&quot; width=&quot;100px&quot; /&gt;</span><br><span class="line">  &lt;button id=&quot;btn&quot; onclick=&quot;onClick()&quot;&gt;calc&lt;/button&gt;</span><br><span class="line">  &lt;p id=&quot;result-output&quot;&gt;&lt;/p&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">  function add(a, b) &#123;</span><br><span class="line">    return a + b;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function sub(a, b) &#123;</span><br><span class="line">    return a - b;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function operation(func, a, b) &#123;</span><br><span class="line">    return func(a, b);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function onClick() &#123;</span><br><span class="line">    var a = 1.4, b = 1.5;</span><br><span class="line">    var input = document.getElementById(&apos;operator&apos;);</span><br><span class="line">    var opf;</span><br><span class="line">    switch (input.value) &#123;</span><br><span class="line">      case &apos;+&apos;:</span><br><span class="line">        opf = add;</span><br><span class="line">        break;</span><br><span class="line">      case &apos;-&apos;:</span><br><span class="line">        opf = sub;</span><br><span class="line">        break;</span><br><span class="line">      default:</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    document.getElementById(&apos;result-output&apos;).innerHTML = &apos;the result is :&apos; + operation(opf, a, b);</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/html</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">  &lt;title&gt;begin&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">  &lt;p&gt;ensure the operator is:&lt;/p&gt;</div><div class="line">  &lt;input id=&quot;operator&quot; width=&quot;100px&quot; /&gt;</div><div class="line">  &lt;button id=&quot;btn&quot; onclick=&quot;onClick()&quot;&gt;calc&lt;/button&gt;</div><div class="line">  &lt;p id=&quot;result-output&quot;&gt;&lt;/p&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">  function add(a, b) &#123;</div><div class="line">    return a + b;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  function sub(a, b) &#123;</div><div class="line">    return a - b;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  function operation(func, a, b) &#123;</div><div class="line">    return func(a, b);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  function onClick() &#123;</div><div class="line">    var a = 1.4, b = 1.5;</div><div class="line">    var input = document.getElementById(&apos;operator&apos;);</div><div class="line">    var opf;</div><div class="line">    switch (input.value) &#123;</div><div class="line">      case &apos;+&apos;:</div><div class="line">        opf = add;</div><div class="line">        break;</div><div class="line">      case &apos;-&apos;:</div><div class="line">        opf = sub;</div><div class="line">        break;</div><div class="line">      default:</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    document.getElementById(&apos;result-output&apos;).innerHTML = &apos;the result is :&apos; + operation(opf, a, b);</div><div class="line">  &#125;</div><div class="line">&lt;/script&gt;</div><div class="line"></div><div class="line">&lt;/html</div></pre></td></tr></table></figure>
 <p>相似度是不是很高。唯一的区别就是在javascript中，变量是弱类型的，不用声明它是指向函数对象的变量。</p>
 <p>所以通过类比，我更容易理解函数指针了。<strong>就是一个变量来引用函数，但是这个变量是具体函数的类型的</strong>。什么叫具体函数的类型？一个函数的结构是怎样的？看看函数原型的定义：<em>返回值类型＋函数名＋参数类型</em>。函数名是具体的，其它两部分是类型。也就是说，只有“<em>返回值类型＋参数类型</em>”才能把函数归纳起来成为类型。像上面的例子：</p>
 <blockquote>
@@ -284,7 +284,7 @@
 
             
     
-        <a href="http://susyx.github.io/2016/05/25/study-pointer-of-function/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://susyx.github.io/2016/05/25/study-pointer-of-function/">Comments</a>
+        <a href="http://susyx.github.io/2016/05/25/study-pointer-of-function/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://susyx.github.io/2016/05/25/study-pointer-of-function/">Comentarios</a>
     
 
         </footer>
@@ -294,7 +294,7 @@
 <nav id="article-nav">
     
         <a href="/2016/06/25/github-page-domain/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Newer</strong>
+            <strong class="article-nav-caption">Más nuevo</strong>
             <div class="article-nav-title">
                 
                     github博客关联域名
@@ -304,7 +304,7 @@
     
     
         <a href="/2016/05/20/jni_in_android_studio/" id="article-nav-older" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Older</strong>
+            <strong class="article-nav-caption">Más viejo</strong>
             <div class="article-nav-title">Android Studio加入jni模块并调试jni代码</div>
         </a>
     
@@ -332,27 +332,46 @@
    
         
     <div class="widget-wrap">
-        <h3 class="widget-title">tag cloud</h3>
+        <h3 class="widget-title">Nube de etiquetas</h3>
         <div class="widget tagcloud">
-            <a href="/tags/ActionBar/" style="font-size: 15px;">ActionBar</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Android-Studio/" style="font-size: 10px;">Android Studio</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/c/" style="font-size: 10px;">c++</a> <a href="/tags/github-pages/" style="font-size: 10px;">github pages</a> <a href="/tags/jni/" style="font-size: 10px;">jni</a> <a href="/tags/none/" style="font-size: 10px;">none</a> <a href="/tags/函数指针/" style="font-size: 10px;">函数指针</a> <a href="/tags/域名/" style="font-size: 10px;">域名</a>
+            <a href="/tags/ActionBar/" style="font-size: 20px;">ActionBar</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Android-Studio/" style="font-size: 10px;">Android Studio</a> <a href="/tags/Option-Menu/" style="font-size: 10px;">Option Menu</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/c/" style="font-size: 10px;">c++</a> <a href="/tags/github-pages/" style="font-size: 10px;">github pages</a> <a href="/tags/jni/" style="font-size: 10px;">jni</a> <a href="/tags/none/" style="font-size: 10px;">none</a> <a href="/tags/函数指针/" style="font-size: 10px;">函数指针</a> <a href="/tags/域名/" style="font-size: 10px;">域名</a>
         </div>
     </div>
 
     
         
     <div class="widget-wrap">
-        <h3 class="widget-title">categories</h3>
+        <h3 class="widget-title">Categorias</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/study/">study</a><span class="category-list-count">1</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/study/">study</a><span class="category-list-count">1</span></li></ul>
         </div>
     </div>
 
     
         
     <div class="widget-wrap">
-        <h3 class="widget-title">recent</h3>
+        <h3 class="widget-title">Recientes</h3>
         <div class="widget">
             <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/07/28/action-bar-menu/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2016/07/28/action-bar-menu/" class="title">ActionBar Option Menu创建流程</a></p>
+                            <p class="item-date"><time datetime="2016-07-28T15:41:55.000Z" itemprop="datePublished">2016-07-28</time></p>
+                        </div>
+                    </li>
                 
                     <li>
                         
@@ -430,25 +449,6 @@
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2016/05/15/action-bar-plan/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2016/05/15/action-bar-plan/" class="title">Android ActionBar计划</a></p>
-                            <p class="item-date"><time datetime="2016-05-15T02:45:28.000Z" itemprop="datePublished">2016-05-15</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -456,7 +456,7 @@
     
         
     <div class="widget-wrap widget-list">
-        <h3 class="widget-title">links</h3>
+        <h3 class="widget-title">Links</h3>
         <div class="widget">
             <ul>
                 
@@ -477,7 +477,7 @@
         <footer id="footer">
     <div class="outer">
         <div id="footer-info" class="inner">
-            &copy; 2016 suyouxiong<br>
+            &copy; 2019 suyouxiong<br>
             Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
         </div>
     </div>
